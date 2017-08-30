@@ -1,0 +1,31 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+  }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'java'
+
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  compile "org.springframework.boot:spring-boot-starter-data-jpa"
+  compile "org.springframework.boot:spring-boot-starter-web"
+  compile "org.mindrot:jbcrypt:0.4"
+  //compile "mysql:mysql-connector-java"
+  compile "com.h2database:h2:1.4.196"
+  compile "org.projectlombok:lombok:1.16.16"
+}
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'r1g.atrisini.Application'
+}
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="atrisiniApp">
+  <head>
+    <title>Register new user</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script>
+      var atrisiniApp = angular.module("atrisiniApp", []);
+      atrisiniApp.controller("RegisterCtrl", ["$scope", "$http", function($scope, $http) {
+        $scope.newUser = {};
+        $scope.register = function() {
+          $scope.submitting = true;
+          $http.post("/users/create", $scope.newUser).then(function(response){
+            $scope.response = response.data;
+            console.log(response);
+          });
+        }
+      }]);
+    </script>
+  </head>
+  <body ng-controller="RegisterCtrl">
+    <h2>Register new user</h2>
+      <div style="margin:2px;">
+        <span style="width:100px; display:inline-block;">Full Name:</span>
+        <input type="text" ng-model="newUser.fullName"/>
+      </div>
+      <div style="margin:2px;">
+        <span style="width:100px; display:inline-block;">Email:</span>
+        <input type="text" ng-model="newUser.email"/>
+      </div>
+      <div style="margin:2px;">
+        <span style="width:100px; display:inline-block;">Password:</span>
+        <input type="password" ng-model="newUser.password"/>
+      </div>
+    <button ng-hide="submitting" ng-click="register()">Create</button>
+    <div ng-show="submitting">Created. Here's response from server:</div>
+    <div>{{response}}</div>
+  </body>
+</html>
